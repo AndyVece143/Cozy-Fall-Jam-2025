@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Apple : MonoBehaviour
@@ -7,6 +8,7 @@ public class Apple : MonoBehaviour
     public Animator anim;
     private Rigidbody2D body;
     private BoxCollider2D boxCollider;
+    public bool canCollect = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +45,29 @@ public class Apple : MonoBehaviour
         if (timer <= 0 && appleState == 3)
         {
             body.bodyType = RigidbodyType2D.Dynamic;
+            transform.Rotate(Vector3.forward * (180 * Time.deltaTime));
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        body.bodyType = RigidbodyType2D.Static;
+        canCollect = false;
+        StartCoroutine(waiterFail(1f));
+    }
+
+    IEnumerator waiterFail(float duration)
+    {
+        SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+        Color startColor = renderer.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            renderer.color = Color.Lerp(startColor, endColor, time / duration);
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }

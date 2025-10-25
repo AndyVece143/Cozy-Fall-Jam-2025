@@ -35,7 +35,7 @@ public class AppleTree : MonoBehaviour
 
         if (Physics2D.OverlapCircle(spawnPos, radius))
         {
-            Debug.Log("Uh oh!");
+            //Debug.Log("Uh oh!");
             SpawnApples();
         }
 

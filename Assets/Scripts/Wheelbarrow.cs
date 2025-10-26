@@ -7,6 +7,9 @@ public class Wheelbarrow : MonoBehaviour
     public GameManager gameManager;
     public float countdown;
 
+    [SerializeField] private AudioClip collectApple;
+    [SerializeField] private AudioClip dropoffApple;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +32,7 @@ public class Wheelbarrow : MonoBehaviour
             //Debug.Log("APPLE");
             appleCount++;
             Destroy(collision.gameObject);
+            SoundManager.instance.PlaySound(collectApple);
         }
         if (collision.tag == "Apple" && appleCount >= 10 )
         {
@@ -44,6 +48,7 @@ public class Wheelbarrow : MonoBehaviour
             gameManager.IncreaseScore(1);
             appleCount--;
             countdown = 0.3f;
+            SoundManager.instance.PlaySound(dropoffApple);
         }
     }
 }

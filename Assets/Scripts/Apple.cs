@@ -10,6 +10,10 @@ public class Apple : MonoBehaviour
     private BoxCollider2D boxCollider;
     public bool canCollect = true;
 
+    [SerializeField] private AudioClip landSound;
+
+    private bool noiseBool = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,7 +57,17 @@ public class Apple : MonoBehaviour
     {
         body.bodyType = RigidbodyType2D.Static;
         canCollect = false;
+        PlayNoise();
         StartCoroutine(waiterFail(1f));
+    }
+
+    private void PlayNoise()
+    {
+        if (noiseBool == true)
+        {
+            SoundManager.instance.PlaySound(landSound);
+            noiseBool = false;
+        }
     }
 
     IEnumerator waiterFail(float duration)

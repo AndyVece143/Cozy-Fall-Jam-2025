@@ -131,6 +131,8 @@ MonoBehaviour:
   timer: 0
   appleState: 0
   anim: {fileID: 0}
+  canCollect: 1
+  landSound: {fileID: 8300000, guid: e96248be41516974aa98152179544036, type: 3}
 --- !u!50 &5899247756144079650
 Rigidbody2D:
   serializedVersion: 5

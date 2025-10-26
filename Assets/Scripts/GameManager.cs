@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     public Wheelbarrow wheelbarrow;
     public int score;
+    public LevelLoader loader;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
         else if (remainingTime < 0)
         {
             remainingTime = 0;
+            loader.LoadNextLevel("Ending");
         }
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);
